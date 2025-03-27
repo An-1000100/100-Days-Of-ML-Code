@@ -6,6 +6,8 @@
 As shown in the infograph we will break down data preprocessing in 6 essential steps.
 Get the dataset from [here](https://github.com/Avik-Jain/100-Days-Of-ML-Code/tree/master/datasets) that is used in this example
 
+OK THE REAL STEP 1 IS TO IMPORT THESE VIA PIP FIRST OK
+
 ## Step 1: Importing the libraries
 ```Python
 import numpy as np
@@ -13,7 +15,7 @@ import pandas as pd
 ```
 ## Step 2: Importing dataset
 ```python
-dataset = pd.read_csv('Data.csv')
+dataset = pd.read_csv('Data.csv')    **note: it's better to directly copy the path of datasets from your file
 X = dataset.iloc[ : , :-1].values
 Y = dataset.iloc[ : , 3].values
 ```
@@ -23,6 +25,14 @@ from sklearn.preprocessing import Imputer
 imputer = Imputer(missing_values = "NaN", strategy = "mean", axis = 0)
 imputer = imputer.fit(X[ : , 1:3])
 X[ : , 1:3] = imputer.transform(X[ : , 1:3])
+
+**note: Imputer is no longer used
+from sklearn.impute import SimpleImputer  # Correct import
+# Create an imputer instance
+imputer = SimpleImputer(missing_values=np.nan, strategy="mean")
+# Fit and transform the data
+X[:, 1:3] = imputer.fit_transform(X[:, 1:3])
+
 ```
 ## Step 4: Encoding categorical data
 ```python
@@ -41,6 +51,11 @@ Y =  labelencoder_Y.fit_transform(Y)
 ```python
 from sklearn.cross_validation import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split( X , Y , test_size = 0.2, random_state = 0)
+
+note: updated way to import items
+from sklearn.model_selection import train_test_split  # Updated import
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
+
 ```
 
 ## Step 6: Feature Scaling
